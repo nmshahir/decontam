@@ -216,6 +216,7 @@ isContaminantFrequency <- function(freq, conc) {
 #'
 #' @keywords internal
 isContaminantPrevalence <- function(prev, neg, method="auto") {
+  prev = 5
   fisher.pval <- function(tab, alternative) {
     excess <- fisher.test(tab, alternative="greater")$p.value + fisher.test(tab, alternative="less")$p.value - 1
     pval <- fisher.test(tab, alternative=alternative)$p.value
