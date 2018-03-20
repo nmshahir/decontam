@@ -215,16 +215,16 @@ isContaminantFrequency <- function(freq, conc) {
 #' @importFrom stats prop.test
 #'
 #' @keywords internal
-isContaminantPrevalence <- function(prev, neg, method="auto") {
-  prev = 5
+isContaminantPrevalence <- function(freq, neg, method="auto") {
+  freq = 2
   fisher.pval <- function(tab, alternative) {
     excess <- fisher.test(tab, alternative="greater")$p.value + fisher.test(tab, alternative="less")$p.value - 1
     pval <- fisher.test(tab, alternative=alternative)$p.value
     pval <- pval - excess/2
     pval
   }
-  if(sum(prev>0)>1 && sum(neg,na.rm=TRUE) > 0 && sum(neg,na.rm=TRUE) < sum(!is.na(neg))) {
-    tab <- table(factor(neg, levels=c(TRUE, FALSE)), factor(prev>0, levels=c(TRUE, FALSE)))
+  if(sum(freq>0)>1 && sum(neg,na.rm=TRUE) > 0 && sum(neg,na.rm=TRUE) < sum(!is.na(neg))) {
+    tab <- table(factor(neg, levels=c(TRUE, FALSE)), factor(freq>0, levels=c(TRUE, FALSE)))
     # First entry (1,1) is the neg prevalence, so alternative is "greater"
     if((tab[1,2] + tab[2,2]) == 0) { # Present in all samples
       pval <- 0.5
